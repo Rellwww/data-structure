@@ -84,6 +84,35 @@ if __name__=="__main__":
   tail.next=new_node
   new_node.prev=tail
   print(head)
+  p=head
+  for _ in range(2):
+    p=p.next
+  new_node=DoublyListNode(22)
+  new_node.prev=p
+  new_node.next=p.next
+  p.next.prev=new_node
+  p.next=new_node
+  print(head)
+  p=head
+  for _ in range(5):
+    p=p.next
+  toDelete=p.next
+  p.next=toDelete.next
+  toDelete.next.prev=p
+  toDelete.next=None
+  toDelete.prev=None
+  print(head)
+  toDelete=head
+  head=toDelete.next
+  head.prev=None
+  toDelete.next=None
+  print(head)
+  p=head
+  while p.next:
+    p=p.next
+  p.prev.next=None
+  p.prev=None
+  print(head)
 
 
 """  
