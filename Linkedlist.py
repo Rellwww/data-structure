@@ -44,18 +44,24 @@ class DoublyLinkedList:
     
   def get_node(self,index):
     self.check_element_index(index)
-    p=self.head.next
-    for _ in range(index):
-      p=p.next
+    if index < (self.size // 2):
+      p=self.head.next
+      for _ in range(index):
+        p=p.next
+    else:
+      p=self.tail.prev
+      back_step_num=self.size-index-1
+      for _ in range(back_step_num):
+        p=p.prev
     return p
 
   def display(self):
     print(f"Size={self.size}")
     p=self.head.next
-
-
-
-
+    while p!=self.tail:
+      print(f"{p.val} <-> ",end="")
+      p=p.next
+    print("None\n")
 
 #add element
   def add_last(self,val):
@@ -74,9 +80,77 @@ class DoublyLinkedList:
     self.head.next=p
     self.size+=1
     
-#  def add_index(self,val,index):
+  def add_index(self,index,element):
+    self.check_position_index(index)
+    if index==self.size:
+      self.add_last(element)
+      return
+    p=self.get_node(index)
+    x=DoublyNode(element)
+    x.prev=p.prev
+    x.next=p
+    p.prev.next=x
+    p.prev=x
+    self.size+=1
 
+#delete element
+  def remove_first(self):
+    if self.size<1:
+      raise IndexError("No elements to remove")
+    x=self.head.next
+    self.head.next=x.next
+    x.next.prev=self.head
+    x.prev=None
+    x.next=None
+    self.size-=1
+    return x.val
   
+  def remove_last(self):
+    if self.size<1:
+      raise IndexError("No elements to remove")
+    x=self.tail.prev
+    x.prev.next=self.tail
+    self.tail.prev=x.prev
+    x.prev=None
+    x.next=None
+    self.size-=1
+    return x.val
+  
+  def remove(self,index):
+    self.check_element_index(index)
+    x=self.get_node(index)
+    p=x.next
+    p.prev=x.prev
+    x.prev.next=p
+    x.next=None
+    x.prev=None
+    self.size-=1
+    return x.val
+  
+#find element
+  def get(self,index):
+    self.check_element_index(index)
+    p=self.get_node(index)
+    return p.val
+  
+  def get_first(self):
+    if self.size<1:
+      raise IndexError("No element in the list")
+    return self.head.next.val
+  
+  def get_last(self):
+    if self.size<1:
+      raise IndexError("No element in the list")
+    return self.tail.prev.val
+  
+  #change element
+  def set(self,index,val):
+    self.check_element_index(index)
+    p=self.get_node(index)
+    old_val=p.val
+    p.val=val
+    return old_val
+
 
 if __name__=="__main__":
   list = DoublyLinkedList()
@@ -85,7 +159,18 @@ if __name__=="__main__":
   list.add_first(-1)
   list.add_last(2)
   print(list.is_empty())
-  print(list)
+  list.display()
+  list.add_index(4,3)
+  list.display()
+  print(list.remove_first())
+  print(list.remove_last())
+  list.display()
+  list.add_last(3)
+  list.remove(3)
+  print(list.get_first())
+  print(list.get_last())
+  list.set(2,11)
+  list.display()
 
   
     
