@@ -1,59 +1,77 @@
 from collections import deque
-#队列的实现
-class Myqueue:
-  def __init__(self):
-    self.list=deque()
-  #队尾插入元素 时间复杂度O(1)
-  def push(self,element):
-    self.list.append(element)
-  #队头删除元素，时间复杂度O(1)
-  def pop(self):
-    return self.list.popleft()
-  #查看队头元素，时间复杂度O(1)
-  def peek(self):
-    return self.list[0]
-  #返回元素个数，时间复杂度O(1)
-  def size(self):
-    return len(self.list)
-#栈的实现
-class Mystack:
-  def __init__(self):
-    self.list=deque()
-  #栈顶插入元素，时间复杂度O(1)
-  def push(self,element):
-    self.list.append(element)
-  #栈顶删除元素，时间复杂度O(1)
-  def pop(self):
-    return self.list.pop()
-  #查看栈顶元素，时间复杂度O(1)
-  def peek(self):
-    return self.list[-1]
-  #返回元素个数，时间复杂度O(1)
-  def size(self):
-    return len(self.list)
 
-if __name__=="__main__":
-  queue=Myqueue()
-  queue.push(1)
-  queue.push(2)
-  queue.push(3)
-  print(queue.peek())
-  print(queue.pop())
-  print(queue.pop())
-  print(queue.peek())
-  print(queue.size())
-  stack=Mystack()
-  stack.push(1)
-  stack.push(2)
-  stack.push(3)
-  print(stack.peek())
-  print(stack.pop())
-  print(stack.pop())
-  print(stack.peek())
-  print(stack.size())
+# Implementation of a Queue
+class MyQueue:
+    def __init__(self):
+        # Using deque (double-ended queue) for storage
+        self.list = deque()
 
+    # Insert element at the rear (Enqueue)
+    # Time Complexity: O(1)
+    def push(self, element):
+        self.list.append(element)
 
+    # Remove element from the front (Dequeue)
+    # Time Complexity: O(1)
+    def pop(self):
+        return self.list.popleft()
 
-    
+    # Peek at the front element (without removing)
+    # Time Complexity: O(1)
+    def peek(self):
+        return self.list[0]
 
-  
+    # Return the number of elements
+    # Time Complexity: O(1)
+    def size(self):
+        return len(self.list)
+
+# Implementation of a Stack
+class MyStack:
+    def __init__(self):
+        self.list = deque()
+
+    # Insert element at the top (Push)
+    # Time Complexity: O(1)
+    def push(self, element):
+        self.list.append(element)
+
+    # Remove element from the top (Pop)
+    # Time Complexity: O(1)
+    def pop(self):
+        return self.list.pop()
+
+    # Peek at the top element (without removing)
+    # Time Complexity: O(1)
+    def peek(self):
+        return self.list[-1]
+
+    # Return the number of elements
+    # Time Complexity: O(1)
+    def size(self):
+        return len(self.list)
+
+if __name__ == "__main__":
+    # Test Queue
+    print("--- Testing Queue ---")
+    queue = MyQueue()
+    queue.push(1)
+    queue.push(2)
+    queue.push(3)
+    print(f"Peek front: {queue.peek()}")  # Should be 1
+    print(f"Pop front: {queue.pop()}")    # Should be 1
+    print(f"Pop front: {queue.pop()}")    # Should be 2
+    print(f"Peek front: {queue.peek()}")  # Should be 3
+    print(f"Queue size: {queue.size()}")  # Should be 1
+
+    # Test Stack
+    print("\n--- Testing Stack ---")
+    stack = MyStack()
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+    print(f"Peek top: {stack.peek()}")    # Should be 3
+    print(f"Pop top: {stack.pop()}")      # Should be 3
+    print(f"Pop top: {stack.pop()}")      # Should be 2
+    print(f"Peek top: {stack.peek()}")    # Should be 1
+    print(f"Stack size: {stack.size()}")  # Should be 1
